@@ -34,15 +34,20 @@ function onImageClick(evt) {
   const instance = basicLightbox.create(`
     <img src="${imgBigRef}" width="800" height="600">
 `);
+  
   instance.show();
+    
+  onShow: (instance) => {
+    galleryRef.addEventListener("keydown", onEscClick);
+  };
+    
+  onClose: (instance) => {
+    galleryRef.removeEventListener("keydown", onEscClick);
+  };
 
-  galleryRef.addEventListener(
-    "keydown",
-    (evt) => {
+    function onEscClick(evt) {
       if (evt.code === "Escape") {
         instance.close();
       }
-    },
-    { once: "true" }
-  );
+    };
 }
