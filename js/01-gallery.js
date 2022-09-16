@@ -31,23 +31,26 @@ function onImageClick(evt) {
 
   const imgBigRef = evt.target.dataset.source;
 
-  const instance = basicLightbox.create(`
+  const instance = basicLightbox.create(
+    `
     <img src="${imgBigRef}" width="800" height="600">
-`);
-  
-  instance.show();
-    
-  onShow: (instance) => {
-    galleryRef.addEventListener("keydown", onEscClick);
-  };
-    
-  onClose: (instance) => {
-    galleryRef.removeEventListener("keydown", onEscClick);
-  };
+`,
+    {
+      onShow: (instance) => {
+        galleryRef.addEventListener("keydown", onEscClick);
+      },
 
-    function onEscClick(evt) {
-      if (evt.code === "Escape") {
-        instance.close();
-      }
-    };
+      onClose: (instance) => {
+        galleryRef.removeEventListener("keydown", onEscClick);
+      },
+    }
+  );
+
+  instance.show();
+
+  function onEscClick(evt) {
+    if (evt.code === "Escape") {
+      instance.close();
+    }
+  }
 }
